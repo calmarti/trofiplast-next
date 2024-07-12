@@ -4,72 +4,40 @@ import Image from "next/image";
 export default function Page() {
   return (
     <>
-    <nav
-      className="sticky top-0 z-10 block w-full max-w-full px-4 py-2 text-black bg-white border rounded-none shadow-md h-max border-white/80 bg-opacity-80 backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4">
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <a href="#"
-          className="mr-4 block cursor-pointer py-1.5 font-sans text-base font-medium leading-relaxed text-inherit antialiased">
-         Trofiplast
-        </a>
-        <div className="flex items-center gap-4">
-          <div className="hidden mr-4 lg:block">
-            <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-              <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                <a href="#" className="flex items-center">
-                About
-                </a>
-              </li>
-              <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                <a href="#" className="flex items-center">
-                 Search
-                </a>
-              </li>
-              <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                <a href="#" className="flex items-center">
-                 Contribute
-                </a>
-              </li>
-              <li className="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                <a href="#" className="flex items-center">
-                Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="flex items-center gap-x-1">
-            <button
-              className="hidden px-4 py-2 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
-              type="button">
-              <span>Log In</span>
-            </button>
-            <button
-              className="hidden select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
-              type="button">
-              <span>Sign in</span>
-            </button>
-          </div>
-          <button
-            className="relative ml-auto h-6 max-h-[40px] w-6 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden"
-            type="button">
-            <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor"
-                stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </span>
+  <div className="space-y-4">
+  <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-gray-800 text-sm py-4">
+    <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between" aria-label="Global">
+      <div className="flex items-center justify-between">
+        <a className="flex-none text-xl font-semibold text-white" href="#">Trofiplast</a>
+        <div className="sm:hidden">
+          <button type="button" className="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-lg border border-gray-700 font-medium bg-gray-800 text-gray-400 shadow-sm align-middle hover:bg-gray-700/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-600 transition-all text-sm" data-hs-collapse="#navbar-dark" aria-controls="navbar-dark" aria-label="Toggle navigation">
+            <svg className="hs-collapse-open:hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+          <svg className="hs-collapse-open:block hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
         </div>
       </div>
+      <div id="navbar-dark" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
+        <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+          <a className="font-medium text-white" href="#" aria-current="page">Home</a>
+          <a className="font-medium text-gray-400 hover:text-gray-500" href="#">Search</a>
+          <a className="font-medium text-gray-400 hover:text-gray-500" href="#">About</a>
+          <a className="font-medium text-gray-400 hover:text-gray-500" href="#">Contribute</a>
+          <a className="font-medium text-gray-400 hover:text-gray-500" href="#">Contact</a>
+        </div>
+      </div>
     </nav>
+  </header>
 
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Image
-        src="/trofiplast_logo.png"
-        width={500}
-        height={500}
-        alt="Trofiplast logo"
-      ></Image>
-    </main>
+</div>
+
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <Image
+          src="/trofiplast_logo.png"
+          width={500}
+          height={500}
+          alt="Trofiplast logo"
+        ></Image>
+      </main>
 
     </>
   );
@@ -86,6 +54,8 @@ export default function Page() {
           priority
         />
       </div> */}
+
+
 
 {/*       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
 
