@@ -44,4 +44,9 @@ model Item {
   country       String   
   from          
   to
+  createdAt     DateTime @default(now())
 }
+
+//CREATE THE ITEM SCHEMA
+//POPULATE THE DB FROM PRIMA CLI OR PRISMA STUDIO
+//ADD SCRIPT TO PACKAGE JSON TO MIGRATE AND UPDATE TYPES EACH TIME THE SCHEMA CHANGES
