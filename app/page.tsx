@@ -9,7 +9,7 @@ export default function Page() {
             <div className="flex lg:flex-1">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Trofiplast</span>
-                <img className="h-16 w-auto" src="trofiplast_logo.png" alt="Trofiplast logo" />
+                <img className="h-20 w-auto rounded-full" src="trofiplast_logo.png" alt="Trofiplast logo" />
               </a>
             </div>
             <div className="flex lg:hidden">
@@ -105,32 +105,32 @@ export default function Page() {
 
           <div className="flex flex-col items-center">
 
-              <p className="text-lg leading-8 text-gray-600  w-1/2">
+              <p className="mb-6 text-lg leading-10 text-gray-600  w-1/2  text-justify">
               TROFIPLAST is a web-based database offering an open online library of worldwide 
               records of anthropogenic debris ingested by biota. It includes the species affected,
                the area and the year where it was found, as well as the reference where the information was recorded. 
               </p>
 
-              <p className="mt-6 text-lg leading-8 text-gray-600 w-1/2">
+              <p className="my-6 text-lg leading-10 text-gray-600 w-1/2  text-justify">
               Trofiplast is structured according to three general categories where biota regularly inhabits: seawater, 
                freshwater, and land. A separate category includes laboratory experiments.
               </p>
 
-              <p className="mt-6 text-lg leading-8 text-gray-600 w-1/2">
+              <p className="my-6 text-lg leading-10 text-gray-600 w-1/2  text-justify">
                 The web-database has been developed by Archipelagos, ambiente e sviluppo, Italia and Archipelagos - environment and development, 
                 organizations under the project “Anthropogenic debris impacts on marine biota and its environment”. 
                 This web application has been developed as a voluntary work of the organization members.
               </p>
               
-              <p className="mt-6 text-lg leading-8 text-gray-600 w-1/2">Cited TROFIPLAST web-based database as:
+              <p className="my-6 text-lg leading-10 text-gray-600 w-1/2  text-justify">Cited TROFIPLAST web-based database as:
               </p>
-              <p className="mt-6 text-lg leading-8 text-gray-600 w-1/2">
+              <p className="my-6 text-lg leading-10 text-gray-600 w-1/2  text-justify">
               Hernandez-Milian, G., Martinez-Calcaño, I., Panou, A. and Bundone, L. 2022. 
               TROFIPLAST: a web-database environment for the worldwide anthropogenic debris ingestion records by biota. Archipelagos, ambiente e sviluppo (Italy) and Archipelagos -environment & development (Greece). November 2022. https://trofiplast.calmartiportfolio.com
               </p>
 
-              <div className="mt-32 flex items-center justify-center gap-x-6">
-                <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Learn more about Archipelagos ambiente e sviluppo<span aria-hidden="true">→</span></a>
+              <div className="mt-32 flex items-center justify-center gap-x-6  text-justify">
+                <a href="#" className="text-sm font-semibold leading-6 text-gray-900 text-justify">Learn more about Archipelagos ambiente e sviluppo<span aria-hidden="true">→</span></a>
               </div>
 
           </div>
@@ -142,7 +142,7 @@ export default function Page() {
           src="/archipelagos_logo.png"
           width={300}
           height={300}
-          alt="Trofiplast logo"
+          alt="Archipelagos logo"
           className="pb-36"
         ></Image>
 
