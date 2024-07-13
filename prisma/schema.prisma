@@ -14,39 +14,25 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Post {
-  id        String     @default(cuid()) @id
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  String?
-}
-
-model User {
-  id            String       @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
-  @@map(name: "users")
-}
 
 model Item {
-  group         String
-  order         String   
-  family        String   
-  genus         String   
-  species       String   
-  area          String   
-  origin        String   
-  country       String   
-  from          
-  to
+  id            Int     @id @default(autoincrement())
+  group         String?
+  order         String?   
+  family        String?   
+  genus         String?   
+  species       String?   
+  area          String?   
+  origin        String?   
+  country       String?
+  from          Int? 
+  to            Int? 
+  sampling_info String?
   createdAt     DateTime @default(now())
+  contributor   String   @default("{ \"Gema Hernandez-Milian\" }")
 }
 
-//CREATE THE ITEM SCHEMA
-//POPULATE THE DB FROM PRIMA CLI OR PRISMA STUDIO
+
+//CREATE THE ITEM SCHEMA (IF CLIENT WAS NOT REMOVED AND REINSTALLED THEN MIGRATE, AS SCHEMA WOULD'VE CHANGED!)
 //ADD SCRIPT TO PACKAGE JSON TO MIGRATE AND UPDATE TYPES EACH TIME THE SCHEMA CHANGES
+//POPULATE THE DB FROM A SCRIPT THAT USES A NODE SCRIPT TO CONVERT TO CSV/JSON AND THEN USE PRISMA CLI 
