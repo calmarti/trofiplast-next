@@ -12,7 +12,7 @@ const readCSVFile = (filePath) => {
         fs.createReadStream(filePath)
         .pipe(csv({ separator: ';' }))
         .on('data', (row)=> results.push(row))
-        .on('error', (err)=>reject(err))       
+        .on('error', (err)=> reject(err))       
         .on('end', ()=> resolve(results));    
     })
 }
