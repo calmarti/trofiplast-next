@@ -1,3 +1,9 @@
+
+
 export default function Page(){
-    return <div>Search page</div>
-}
+  return (
+    <div className="flex justify-center items-center pb-36 h-screen">
+
+    </div>
+
+)}
