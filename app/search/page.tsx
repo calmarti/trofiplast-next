@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import { useState } from 'react'
 import Select from 'react-select'
 
 import NavBar from "../ui/common/navbar";
@@ -13,33 +13,39 @@ import NavBar from "../ui/common/navbar";
 ); */
 
 const dataOptions = [
-  { 'value': 'perro', 'label': 'perro' },
-  { 'value': 'gato', 'label': 'gato' },
-  { 'value': 'ratón', 'label': 'ratón' },
+  { 'value': 'Marine Fish', 'label': 'Marine Fish' },
+  { 'value': 'Terrestrial Mammal', 'label': 'Terrestrial Mammal' },
+  { 'value': 'Freshwater Fish', 'label': 'Freshwater Fish' },
+  { 'value': 'Marine Mammal', 'label': 'Marine Mammal' },
+  { 'value': 'Seabirds', 'label': 'Seabirds' },
+  { 'value': 'Mollusks (Marine Gasteropod)', 'label': 'Marine Mammal' },
 ]
 
 export default function Page() {
+  const [isSearchable, setIsSearchable] = useState(true);
+  const [isClearable, setIsClearable] = useState(true);
+ 
   return (
     <>
       <NavBar></NavBar>
       <form className="h-screen mt-32 ml-24">
-          <Select
-            className="basic-single"
-            classNamePrefix="select"
-            /*     defaultValue={colourOptions[0]}
-                isDisabled={isDisabled}
-                isLoading={isLoading}
-                isClearable={isClearable}
-                isSearchable={isSearchable} */
-            name="animals"
-            options={dataOptions}
+        <Select
+          className="basic-single"
+          classNamePrefix="select"
+          /*defaultValue={colourOptions[0]}*/
+          /*isDisabled={isDisabled}*
+          /* isLoading={isLoading}*/
+          /*isSearchable={isSearchable}*/
+          isClearable={isClearable}
+          name="animals"
+          options={dataOptions}
           /* autoFocus */
           styles={{
-            control: (provided)=>({...provided, width:'20%'}),
-            menu: (provided)=>({...provided, width:'20%'}),
-            option: (provided)=>({...provided, width:'20%'})
+            control: (styles) => ({ ...styles, width: '15%',  }),
+            menu: (styles) => ({ ...styles, width: '15%',}),
+            option: (styles, { isFocused, isSelected, isActive } )=>({...styles, "backgroundColor": isSelected ? "#C1DDBA" : isFocused ? "#C1DDBA": isActive ? "#C1DDBA": undefined , /* ":hover": { backgroundColor:"#C1DDBA" }, */  }) 
           }}
-          />
+        />
    
 
 {/* <div className="relative w-56">
