@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Select from 'react-select'
 
 
-export default function Search({groupOptions /* , orderOptions*/}) {
+export default function Search({ groupOptions /* , orderOptions*/}) {
 
     /* const Checkbox = ({ children, ...props }: JSX.IntrinsicElements['input']) => (
   <label style={{ marginRight: '1em' }}>
