@@ -1,6 +1,7 @@
 import { PrismaClient, Prisma } from '@prisma/client';
-const client = new PrismaClient();
+import prisma from './prisma';
 
+// export const client = new PrismaClient();
 
 // export const itemGroup: Prisma.ItemSelect = {
 //     group:true
@@ -22,7 +23,7 @@ const client = new PrismaClient();
 
 
 export async function getGroupOptions(){
-   const options = await client.item.findMany({
+   const options = await prisma.item.findMany({
         distinct:['group'],
         select:{
             group:true, 
@@ -32,7 +33,7 @@ export async function getGroupOptions(){
 }
 
 export async function getOrderOptions(){
-    const options = await client.item.findMany({
+    const options = await prisma.item.findMany({
          distinct:['order'],
          select:{
             order:true
