@@ -6,15 +6,17 @@ import Search from "../ui/search/search";
 //problema: no cambia a la ruta /search hasta que no termina la llamada!
 //el deploy de vercel no da este problema, puede ser tema de la conexión de apps
 //de next locales con bd grandes, investigar como mitigar esto!
+//los logs de prisma sugieren que el problema es el establecimiento de la conexión
+//"Starting a postgresql pool with 17 connections in PgBouncer mode"
+//(primera línea del log cuando se logra conectar pero demora)
+//find out what's a pool connection in this context
+//si es un tema de la conexión inicial no tendría porque perturbar el desarrollo
+//otra opción es crear una db postgres en local
 
-//problema: el degradado del background color es más oscuro en /search en el deploy de vercel, 
-//y también se ve tenuemente el borde del navbar!
 
 export default async function Page() {
   const [groupResults, orderResults] = await Promise.all([getGroupOptions(), getOrderOptions()])
     
-
-  
   const groupOptions = groupResults.map((item)=>{
     return {
       value: item.group, label: item.group
