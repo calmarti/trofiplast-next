@@ -12,6 +12,7 @@ export default function NavBar() {
                         </a>
                     </div>
                     
+                    {/*hamburguer icon*/}
                     <div className="flex lg:hidden">
                         <button type="button" className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                             <span className="sr-only">Open main menu</span>
@@ -21,6 +22,7 @@ export default function NavBar() {
                         </button>
                     </div>
 
+                      {/*navbar menú*/}
                     <div className="hidden lg:flex lg:gap-x-12">
                         <Link href="/" className="text-md font-semibold leading-6 text-gray-900 hover:text-lime-800 group">
                             Home
