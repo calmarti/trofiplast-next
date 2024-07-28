@@ -112,7 +112,8 @@ export async function getOrderOptions(){
             "species": species,        
             "area": area,           
             "origin": origin,        
-            "country": country              }
+            "country": country      
+        }
     })
     return items;
  }
