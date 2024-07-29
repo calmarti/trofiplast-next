@@ -31,10 +31,11 @@ const [isClearable, setIsClearable] = useState(true);
                 options={groupOptions}
                 /* autoFocus */
                 styles={{
-                    control: (styles) => ({ ...styles, width: '15%', }),
-                    menu: (styles) => ({ ...styles, width: '15%', }),
-                    option: (styles, { isFocused, isSelected, }) =>
-                        ({ ...styles, "backgroundColor": isSelected ? "#C1DDBA" : isFocused ? "#C1DDBA" : undefined, /* ":hover": { backgroundColor:"#C1DDBA" }, */ })
+                    control: (styles, state) => ({ ...styles, width: '15%', borderColor: state.isFocused? '#FFFFFF' : undefined, 
+                            ':active': { ...styles[':active'], borderColor:'#FFFFFF'}, boxShadow: '0 0 0 1px #C1DDBA' }),
+                    menu: (styles) => ({ ...styles, width: '15%'}),
+                    option: (styles, state) =>
+                        ({ ...styles, 'backgroundColor': state.isSelected ? '#C1DDBA' : state.isFocused ? '#C1DDBA' : undefined, ':active': { ...styles[':active'], backgroundColor:'#C1DDBA'} })
                 }}
             />
         </form>
