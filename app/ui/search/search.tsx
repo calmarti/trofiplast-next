@@ -15,9 +15,11 @@ export default function Search({ groupOptions /* , orderOptions*/}) {
 const [isSearchable, setIsSearchable] = useState(true);
 const [isClearable, setIsClearable] = useState(true);
 
+//TODO: for some reason h-100 instead of h-screen (in form element) disables the Select component
 
     return (
-        <form className="h-screen mt-32 ml-24">
+        <div className="max-4xl flex-col m-auto mt-32 bg-slate-200 shadow-xl md:max-w-6xl md:flex">
+        <form className="h-screen m-auto mt-32">
             <Select
                 className="basic-single"
                 classNamePrefix="select"
@@ -26,18 +28,19 @@ const [isClearable, setIsClearable] = useState(true);
                 /* isLoading={isLoading}*/
                 /*isSearchable={isSearchable}*/
                 isClearable={isClearable}
-                name="animals"
+                name="group"
                 // options={dataOptions}
                 options={groupOptions}
                 /* autoFocus */
                 styles={{
-                    control: (styles, state) => ({ ...styles, width: '15%', borderColor: state.isFocused? '#FFFFFF' : undefined, 
+                    control: (styles, state) => ({ ...styles, width: '14rem', borderColor: state.isFocused? '#FFFFFF' : undefined, 
                             ':active': { ...styles[':active'], borderColor:'#FFFFFF'}, boxShadow: '0 0 0 1px #C1DDBA' }),
-                    menu: (styles) => ({ ...styles, width: '15%'}),
+                    menu: (styles) => ({ ...styles, width: '14rem'}),
                     option: (styles, state) =>
                         ({ ...styles, 'backgroundColor': state.isSelected ? '#C1DDBA' : state.isFocused ? '#C1DDBA' : undefined, ':active': { ...styles[':active'], backgroundColor:'#C1DDBA'} })
                 }}
             />
         </form>
+         </div> 
     )
 }
