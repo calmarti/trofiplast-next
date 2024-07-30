@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient, Prisma, Item } from '@prisma/client';
 import prisma from './prisma';
 
 // export const client = new PrismaClient();
@@ -22,17 +22,18 @@ import prisma from './prisma';
 // }  
 
 
-export async function getGroupOptions(){
+export async function getGroupOptions():Promise<fieldOption<'group'>[]>{
    const options = await prisma.item.findMany({
         distinct:['group'],
         select:{
             group:true, 
         }
     })
+    console.log(options)
     return options;
 }
 
-export async function getOrderOptions(){
+export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
     const options = await prisma.item.findMany({
          distinct:['order'],
          select:{
@@ -42,67 +43,69 @@ export async function getOrderOptions(){
      return options;
  }
 
- export async function getFamilyOptions(){
+ export async function getFamilyOptions():Promise<fieldOption<'family'>[]>{
     const options = await prisma.item.findMany({
          distinct:['family'],
          select:{
-            order:true
+            family:true
          }
      })
      return options;
  }
 
- export async function getGenusOptions(){
+ export async function getGenusOptions():Promise<fieldOption<'genus'>[]>{
     const options = await prisma.item.findMany({
          distinct:['genus'],
          select:{
-            order:true
+            genus:true
          }
      })
      return options;
  }
 
- export async function getSpeciesOptions(){
+ export async function getSpeciesOptions():Promise<fieldOption<'species'>[]>{
     const options = await prisma.item.findMany({
          distinct:['species'],
          select:{
-            order:true
+            species:true
          }
      })
      return options;
  }
 
- export async function getAreaOptions(){
+ export async function getAreaOptions():Promise<fieldOption<'area'>[]>{
     const options = await prisma.item.findMany({
          distinct:['area'],
          select:{
-            order:true
+            area:true
          }
      })
      return options;
  }
 
- export async function getOriginOptions(){
+ export async function getOriginOptions():Promise<fieldOption<'origin'>[]>{
     const options = await prisma.item.findMany({
          distinct:['origin'],
          select:{
-            order:true
+            origin:true
          }
      })
      return options;
  }
 
- export async function getCountryOptions(){
+ export async function getCountryOptions():Promise<fieldOption<'country'>[]>{
     const options = await prisma.item.findMany({
          distinct:['country'],
          select:{
-            order:true
+            country:true
          }
      })
      return options;
  }
 
- export async function getItemsByFilters({group,order,family,genus,species,area,origin,country}){
+ export async function getItemsByFilters(
+    {group,order,family,genus,species,area,origin,country}
+    ):Promise<Item[]>{
     const items = await prisma.item.findMany({
         where:{
             "group": group, 

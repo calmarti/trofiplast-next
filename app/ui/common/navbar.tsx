@@ -33,15 +33,11 @@ export default function NavBar() {
                             <div className="bg-gray-900 h-[3px] w-0 group-hover:w-full transition-all duration-200"></div>
                         </Link>
                         <Link href="/search" className="text-md font-semibold leading-6 text-gray-900 hover:text-lime-800 group">
-                            Search the database
+                            Search
                             <div className="bg-gray-900 h-[3px] w-0 group-hover:w-full transition-all duration-200"></div>
                         </Link>
                         <Link href="/contribute" className="text-md font-semibold leading-6 text-gray-900 hover:text-lime-800 group">
                             Contribute new entries
-                            <div className="bg-gray-900 h-[3px] w-0 group-hover:w-full transition-all duration-200"></div>
-                        </Link>
-                        <Link href="/contact" className="text-md font-semibold leading-6 text-gray-900 hover:text-lime-800 group">
-                            Contact
                             <div className="bg-gray-900 h-[3px] w-0 group-hover:w-full transition-all duration-200"></div>
                         </Link>
                     </div>

@@ -1,6 +1,6 @@
 import { getGroupOptions, getOrderOptions } from "../lib/data";
 import NavBar from "../ui/common/navbar";
-import Search from "../ui/search/search";
+import Search from "../ui/search/Search";
 
 //TODO: 
 //problema: no cambia a la ruta /search hasta que no termina la llamada!
