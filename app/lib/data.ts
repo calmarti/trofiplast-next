@@ -21,6 +21,72 @@ import prisma from './prisma';
 //     species:true
 // }  
 
+export async function GetFieldsOptions(){
+    try {
+        const groupOptions = await prisma.item.findMany({
+            distinct:['group'],
+            select:{
+                group:true, 
+            }
+        })    
+        console.log(groupOptions);
+        const orderOptions = await prisma.item.findMany({
+            distinct:['order'],
+            select:{
+               order:true
+            }
+        })
+        const familyOptions = await prisma.item.findMany({
+            distinct:['family'],
+            select:{
+               family:true
+            }
+        })
+        const genusOptions = await prisma.item.findMany({
+            distinct:['genus'],
+            select:{
+               genus:true
+            }
+        })
+        const speciesOptions = await prisma.item.findMany({
+            distinct:['species'],
+            select:{
+               species:true
+            }
+        })
+        const areaOptions = await prisma.item.findMany({
+            distinct:['area'],
+            select:{
+               area:true
+            }
+        })
+        const originOptions = await prisma.item.findMany({
+            distinct:['origin'],
+            select:{
+               origin:true
+            }
+        })
+        const countryOptions = await prisma.item.findMany({
+            distinct:['country'],
+            select:{
+               country:true
+            }
+        })
+        const fieldOptions = await Promise.all
+        ([groupOptions, orderOptions, familyOptions, 
+            genusOptions, speciesOptions, areaOptions, originOptions, countryOptions
+        ])
+        return fieldOptions;
+
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to fetch field options!')
+    }
+   
+       
+    
+}
+
 
 export async function getGroupOptions():Promise<fieldOption<'group'>[]>{
    const options = await prisma.item.findMany({

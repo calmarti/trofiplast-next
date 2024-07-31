@@ -1,4 +1,6 @@
-import { getGroupOptions, getOrderOptions } from "../lib/data";
+// import { getGroupOptions, getOrderOptions } from "../lib/data";
+
+import { GetFieldsOptions } from "../lib/data";
 import NavBar from "../ui/common/navbar";
 import Search from "../ui/search/Search";
 
@@ -15,19 +17,23 @@ import Search from "../ui/search/Search";
 
 
 export default async function Page() {
-  const [groupResults, orderResults] = await Promise.all([getGroupOptions(), getOrderOptions()])
+  // const [groupResults, orderResults] = await Promise.all([getGroupOptions(), getOrderOptions()])
     
-  const groupOptions = groupResults.map((item)=>{
-    return {
-      value: item.group, label: item.group
-    }
-  })
-  
+  // const groupOptions = groupResults.map((item)=>{
+  //   return {
+  //     value: item.group, label: item.group
+  //   }
+  // })
+
+  const fieldsOptionsArray = await GetFieldsOptions();
+  console.log('fieldOptionsArray' , fieldsOptionsArray)
+
   return (
     <>
       <NavBar></NavBar>
       <Search 
-      groupOptions={groupOptions}
+      fieldsOptionsArray={fieldsOptionsArray}
+      // groupOptions={groupOptions}
       // orderOptions={orderOptions}
       ></Search>
     </>
