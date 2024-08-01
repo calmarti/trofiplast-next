@@ -72,23 +72,35 @@ export async function GetFieldsOptions(){
                country:true
             }
         })
+
+/*         const fromOptions = await prisma.item.findMany({
+            distinct:['from'],
+            select:{
+               from:true
+            }
+        })
+        const toOptions = await prisma.item.findMany({
+            distinct:['to'],
+            select:{
+               to:true
+            }
+        }) */
+
         const fieldOptions = await Promise.all
         ([groupOptions, orderOptions, familyOptions, 
-            genusOptions, speciesOptions, areaOptions, originOptions, countryOptions
+            genusOptions, speciesOptions, areaOptions, 
+            originOptions, countryOptions, /*  fromOptions, toOptions */
         ])
         return fieldOptions;
 
     } catch (error) {
         console.log(error);
         throw new Error('Failed to fetch field options!')
-    }
-   
-       
-    
+    }    
 }
 
 
-export async function getGroupOptions():Promise<fieldOption<'group'>[]>{
+/* export async function getGroupOptions():Promise<fieldOption<'group'>[]>{
    const options = await prisma.item.findMany({
         distinct:['group'],
         select:{
@@ -185,4 +197,4 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
         }
     })
     return items;
- }
+ } */
