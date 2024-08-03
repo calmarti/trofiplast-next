@@ -17,7 +17,7 @@ export default function Search({ fieldsOptionsArray }) {
     from: null,to: null,
   });
 
-  const { group, order, family, genus, species, area, origin, country } = filters;
+
 
   // const [groupFilter, setGroupFilter] = useState("");
     
@@ -59,16 +59,14 @@ const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: Action
 
 
 
-  //TODO: funcionan los filtros con el onChange comentado y con el sin comentar, pero no muestra la opción seleccionada por UI
-  //TODO: posible fix -> quitar fieldName del OptionType y pillar el name usando actionMeta.name, pero como le doy el name 
-  //dinámicamente a cada Select?
-  //TODO: fix más realista -> el problema es que no estoy seteando la prop value (el selected value!): 
-  //cada select recibe su propia key de filters: la prop value debe actualizarse tras la mutación del estado pero NO lo hace!
+  //TODO: funcionan los filtros y muestra el selected por UI pero da warning (¿es value o es otra prop?: mirar los docs)
 
 
 
+function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}) {
 
-function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange}) {
+  const { group, order, family, genus, species, area, origin, country } = filters;
+
   return isMounted && fieldOptions.map((options)=> {
       return (
         <div key={options[0].fieldName}>
@@ -82,16 +80,16 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange}) {
             name={options[0].fieldName}
             onChange={handleChange}
             // onChange={(selectedOption, actionMeta)=>handleChange(selectedOption, actionMeta)}         
-            /*  instanceId={elem[0].fieldName} */
-            value={
-              options[0].fieldName === 'group' ? group : 
-              options[0].fieldName === 'order' ? order : 
-              options[0].fieldName === 'family' ? family :
-              options[0].fieldName === 'genus' ? genus : 
-              options[0].fieldName === 'species' ? species : 
-              options[0].fieldName === 'area' ? area : 
-              options[0].fieldName === 'origin' ? origin : 
-              options[0].fieldName === 'country' ? country : ""
+            /*  instanceId={elem[0].fieldName} */            
+              value={
+              options[0].fieldName === 'group' ? {'value' : group, 'label': group} :
+              options[0].fieldName === 'order' ? {'value' : order, 'label': order} :
+              options[0].fieldName === 'family' ? {'value' : family, 'label': family} :
+              options[0].fieldName === 'genus' ? {'value' : genus, 'label': genus} :
+              options[0].fieldName === 'species' ? {'value': species, 'label': species }  : 
+              options[0].fieldName === 'area' ?  {'value' : area, 'label': area } :
+              options[0].fieldName === 'origin' ?  {'value' : origin, 'label': origin } :
+              options[0].fieldName === 'country' ?  {'value' : country, 'label': country} : ""
             }
             //TODO: retomar aquí         
             // getOptionLabel={(option) => option.label}
@@ -152,6 +150,7 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange}) {
          isLoading={isLoading}         
          fieldOptions={fieldOptions}
          handleChange={handleChange}
+         filters={filters}
          ></SelectGroup>
         </div>
         <div className="max-w-full flex flex-col justify-center items-center gap-6 sm:flex-row sm:gap-12 my-6">
