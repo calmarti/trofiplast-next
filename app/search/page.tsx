@@ -29,13 +29,13 @@ export default async function Page() {
   console.log('fieldOptionsArray' , fieldsOptionsArray)
 
   return (
-    <>
+    <div className="mb-40">
       <NavBar></NavBar>
       <Search 
       fieldsOptionsArray={fieldsOptionsArray}
       // groupOptions={groupOptions}
       // orderOptions={orderOptions}
       ></Search>
-    </>
+    </div>
   )
 }
