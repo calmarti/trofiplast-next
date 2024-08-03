@@ -1,7 +1,9 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
-import Select from "react-select";
+import {  useEffect, useState } from "react";
+import Select , { Options, SingleValue, ActionMeta }  from "react-select";
+
+// import { SingleValue, ActionMeta } from "react-select";
 
 export default function Search({ fieldsOptionsArray }) {
 
@@ -14,46 +16,90 @@ export default function Search({ fieldsOptionsArray }) {
     origin: null, country: null,
     from: null,to: null,
   });
+
+  const { group, order, family, genus, species, area, origin, country } = filters;
+
+  // const [groupFilter, setGroupFilter] = useState("");
     
+const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) =>{
+  setFilters((prevState) => {
+    if (actionMeta.action==='select-option'){
+      return {...prevState, [actionMeta.name]: selectedOption.value}
+    }
+  })
+  console.log(selectedOption);    
+  console.log(actionMeta)
+}
 
 
-  const fieldOptions = fieldsOptionsArray.map(
-    (field: fieldOption<"Type">[]) => {
+// const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => {
+//  if(actionMeta.action === "select-option"){
+//     setGroupFilter(selectedOption.value);
+//   }
+//   console.log(selectedOption);    
+//   console.log(actionMeta)
+// };
+
+  const fieldOptions: OptionType[] = fieldsOptionsArray.map(
+    (field: PrismaOption<"Type">[]) => {
       return field.map((elem) => {
         return {
-          fieldName:
-            Object.keys(elem)[0].charAt(0).toUpperCase() +
-            Object.keys(elem)[0].slice(1),
           value: elem[Object.keys(elem)[0]],
           label: elem[Object.keys(elem)[0]],
+          fieldName: Object.keys(elem)[0],
         };
       });
     }
   );
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setIsMounted(true); 
+      console.log('filters; ', filters); 
+  }, [filters]);
 
-  //TODO: really devote time to really think the css layout of the Search subcomponent and the Search page!
 
-function SelectGroup({isMounted, fieldOptions, isLoading }) {
+
+  //TODO: funcionan los filtros con el onChange comentado y con el sin comentar, pero no muestra la opción seleccionada por UI
+  //TODO: posible fix -> quitar fieldName del OptionType y pillar el name usando actionMeta.name, pero como le doy el name 
+  //dinámicamente a cada Select?
+  //TODO: fix más realista -> el problema es que no estoy seteando la prop value (el selected value!): 
+  //cada select recibe su propia key de filters: la prop value debe actualizarse tras la mutación del estado pero NO lo hace!
+
+
+
+
+function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange}) {
   return isMounted && fieldOptions.map((options)=> {
       return (
         <div key={options[0].fieldName}>
           <span id={`label-${options[0].fieldName}`} className="block mb-2">
-            {options[0].fieldName}
+            {options[0].fieldName.charAt(0).toUpperCase() + options[0].fieldName.slice(1)}
           </span>
           <Select
             aria-labelledby={`label-${options[0].fieldName}`}
             id={options[0].fieldName}
             options={options}
-            name={options[0].fieldname}
+            name={options[0].fieldName}
+            onChange={handleChange}
+            // onChange={(selectedOption, actionMeta)=>handleChange(selectedOption, actionMeta)}         
             /*  instanceId={elem[0].fieldName} */
+            value={
+              options[0].fieldName === 'group' ? group : 
+              options[0].fieldName === 'order' ? order : 
+              options[0].fieldName === 'family' ? family :
+              options[0].fieldName === 'genus' ? genus : 
+              options[0].fieldName === 'species' ? species : 
+              options[0].fieldName === 'area' ? area : 
+              options[0].fieldName === 'origin' ? origin : 
+              options[0].fieldName === 'country' ? country : ""
+            }
+            //TODO: retomar aquí         
+            // getOptionLabel={(option) => option.label}
+            // getOptionValue={(option) => option.value}
             classNamePrefix="select"
             isLoading={isLoading}
             isSearchable={true}
-            isClearable={true}
+            isClearable={false}
             styles={{
               control: (styles, state) => ({
                 ...styles,
@@ -103,8 +149,9 @@ function SelectGroup({isMounted, fieldOptions, isLoading }) {
         <div className="max-w-full flex flex-col flex-wrap justify-between items-center gap-6 sm:flex-row sm:gap-10">
          <SelectGroup
          isMounted={isMounted}
-         fieldOptions={fieldOptions}
          isLoading={isLoading}         
+         fieldOptions={fieldOptions}
+         handleChange={handleChange}
          ></SelectGroup>
         </div>
         <div className="max-w-full flex flex-col justify-center items-center gap-6 sm:flex-row sm:gap-12 my-6">

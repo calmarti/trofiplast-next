@@ -86,12 +86,12 @@ export async function GetFieldsOptions(){
             }
         }) */
 
-        const fieldOptions = await Promise.all
+        const allFieldsOptions = await Promise.all
         ([groupOptions, orderOptions, familyOptions, 
             genusOptions, speciesOptions, areaOptions, 
             originOptions, countryOptions, /*  fromOptions, toOptions */
         ])
-        return fieldOptions;
+        return allFieldsOptions;
 
     } catch (error) {
         console.log(error);
@@ -100,7 +100,7 @@ export async function GetFieldsOptions(){
 }
 
 
-/* export async function getGroupOptions():Promise<fieldOption<'group'>[]>{
+/* export async function getGroupOptions():Promise<PrismaOption<'group'>[]>{
    const options = await prisma.item.findMany({
         distinct:['group'],
         select:{
@@ -111,7 +111,7 @@ export async function GetFieldsOptions(){
     return options;
 }
 
-export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
+export async function getOrderOptions():Promise<PrismaOption<'order'>[]>{
     const options = await prisma.item.findMany({
          distinct:['order'],
          select:{
@@ -121,7 +121,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getFamilyOptions():Promise<fieldOption<'family'>[]>{
+ export async function getFamilyOptions():Promise<PrismaOption<'family'>[]>{
     const options = await prisma.item.findMany({
          distinct:['family'],
          select:{
@@ -131,7 +131,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getGenusOptions():Promise<fieldOption<'genus'>[]>{
+ export async function getGenusOptions():Promise<PrismaOption<'genus'>[]>{
     const options = await prisma.item.findMany({
          distinct:['genus'],
          select:{
@@ -141,7 +141,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getSpeciesOptions():Promise<fieldOption<'species'>[]>{
+ export async function getSpeciesOptions():Promise<PrismaOption<'species'>[]>{
     const options = await prisma.item.findMany({
          distinct:['species'],
          select:{
@@ -151,7 +151,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getAreaOptions():Promise<fieldOption<'area'>[]>{
+ export async function getAreaOptions():Promise<PrismaOption<'area'>[]>{
     const options = await prisma.item.findMany({
          distinct:['area'],
          select:{
@@ -161,7 +161,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getOriginOptions():Promise<fieldOption<'origin'>[]>{
+ export async function getOriginOptions():Promise<PrismaOption<'origin'>[]>{
     const options = await prisma.item.findMany({
          distinct:['origin'],
          select:{
@@ -171,7 +171,7 @@ export async function getOrderOptions():Promise<fieldOption<'order'>[]>{
      return options;
  }
 
- export async function getCountryOptions():Promise<fieldOption<'country'>[]>{
+ export async function getCountryOptions():Promise<PrismaOption<'country'>[]>{
     const options = await prisma.item.findMany({
          distinct:['country'],
          select:{

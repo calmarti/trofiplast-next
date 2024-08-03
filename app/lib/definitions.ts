@@ -1,8 +1,17 @@
 // import { Prisma } from '@prisma/client'
 
-type fieldOption<Field extends string> = {
+//fieldOption of Prisma
+type PrismaOption<Field extends string> = {
     [K in Field]: string | null;
   };
 
 
 
+
+//fieldOption of react-select
+
+ type OptionType = {
+    value: string;
+    label: string;
+    fieldName: string
+  };
