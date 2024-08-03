@@ -1,21 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Select from "react-select";
 
 export default function Search({ fieldsOptionsArray }) {
-  /* const Checkbox = ({ children, ...props }: JSX.IntrinsicElements['input']) => (
-  <label style={{ marginRight: '1em' }}>
-    <input type="checkbox" {...props} />
-    {children}
-  </label>
-); */
 
-  const [isSearchable, setIsSearchable] = useState(true);
-  const [isClearable, setIsClearable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [filters, setFilters] = useState({
+    group: null, order: null,
+    family: null, genus: null,
+    species: null, area: null,
+    origin: null, country: null,
+    from: null,to: null,
+  });
+    
+
 
   const fieldOptions = fieldsOptionsArray.map(
     (field: fieldOption<"Type">[]) => {
@@ -35,9 +35,56 @@ export default function Search({ fieldsOptionsArray }) {
     setIsMounted(true);
   }, []);
 
-  //TODO: restructure the whole thing: do NOT render the Selects with a .map but one by one
   //TODO: really devote time to really think the css layout of the Search subcomponent and the Search page!
-  //TODO: button pseudo attributes don't work
+
+function SelectGroup({isMounted, fieldOptions, isLoading }) {
+  return isMounted && fieldOptions.map((options)=> {
+      return (
+        <div key={options[0].fieldName}>
+          <span id={`label-${options[0].fieldName}`} className="block mb-2">
+            {options[0].fieldName}
+          </span>
+          <Select
+            aria-labelledby={`label-${options[0].fieldName}`}
+            id={options[0].fieldName}
+            options={options}
+            name={options[0].fieldname}
+            /*  instanceId={elem[0].fieldName} */
+            classNamePrefix="select"
+            isLoading={isLoading}
+            isSearchable={true}
+            isClearable={true}
+            styles={{
+              control: (styles, state) => ({
+                ...styles,
+                width: "14rem",
+                borderColor: state.isFocused ? "#FFFFFF" : "none",
+                ":active": {
+                  ...styles[":active"],
+                  borderColor: "#FFFFFF",
+                },
+                boxShadow: "0 0 0 1px #C1DDBA",
+              }),
+              menu: (styles) => ({ ...styles, width: "14rem" }),
+              option: (styles, state) => ({
+                ...styles,
+                backgroundColor: state.isFocused
+                  ? "#C1DDBA"
+                  : state.isSelected
+                    ? "#C1DDBA"
+                    : "none",
+                ":active": {
+                  ...styles[":active"],
+                  backgroundColor: "#C1DDBA",
+                },
+              }),
+            }}
+          />
+        </div>
+      );
+    })
+  }
+
 
   return (
     <div className="max-w-4xl mx-auto mt-40 bg-slate-100 rounded-xl shadow-xl sm:max-w-7xl">
@@ -54,55 +101,11 @@ export default function Search({ fieldsOptionsArray }) {
       <hr />
       <form className="max-w-4xl mx-auto mt-24 flex flex-col justify-around items-center sm:max-w-5xl sm:mt-32">
         <div className="max-w-full flex flex-col flex-wrap justify-between items-center gap-6 sm:flex-row sm:gap-10">
-          {isMounted &&
-            fieldOptions.map((elem) => {
-              return (
-                <div key={elem[0].fieldName}>
-                  <span id={`label-${elem[0].fieldName}`} className="block mb-2">
-                    {elem[0].fieldName}
-                  </span>
-                  <Select
-                    aria-labelledby={`label-${elem[0].fieldName}`}
-                    id={elem[0].fieldName}
-                    /*  instanceId={elem[0].fieldName} */
-                    /* key={elem[0].fieldName}    */
-                    classNamePrefix="select"
-                    isDisabled={isDisabled}
-                    isLoading={isLoading}
-                    isSearchable={isSearchable}
-                    isClearable={isClearable}
-                    name={elem[0].fieldname}
-                    // options={groupOptions}
-                    options={elem}
-                    styles={{
-                      control: (styles, state) => ({
-                        ...styles,
-                        width: "14rem",
-                        borderColor: state.isFocused ? "#FFFFFF" : "none",
-                        ":active": {
-                          ...styles[":active"],
-                          borderColor: "#FFFFFF",
-                        },
-                        boxShadow: "0 0 0 1px #C1DDBA",
-                      }),
-                      menu: (styles) => ({ ...styles, width: "14rem" }),
-                      option: (styles, state) => ({
-                        ...styles,
-                        backgroundColor: state.isFocused
-                          ? "#C1DDBA"
-                          : state.isSelected
-                          ? "#C1DDBA"
-                          : "none",
-                        ":active": {
-                          ...styles[":active"],
-                          backgroundColor: "#C1DDBA",
-                        },
-                      }),
-                    }}
-                  />
-                </div>
-              );
-            })}
+         <SelectGroup
+         isMounted={isMounted}
+         fieldOptions={fieldOptions}
+         isLoading={isLoading}         
+         ></SelectGroup>
         </div>
         <div className="max-w-full flex flex-col justify-center items-center gap-6 sm:flex-row sm:gap-12 my-6">
           <div className="flex flex-col">
