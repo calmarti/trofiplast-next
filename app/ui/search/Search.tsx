@@ -22,7 +22,7 @@ export default function Search({ fieldsOptionsArray }) {
   // const [groupFilter, setGroupFilter] = useState("");
     
 const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) =>{
-  setFilters((prevState) => {
+  setFilters((prevState:any) => {
     if (actionMeta.action==='select-option'){
       return {...prevState, [actionMeta.name]: selectedOption.value}
     }
