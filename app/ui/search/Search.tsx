@@ -1,9 +1,9 @@
 "use client";
 
 import {  useEffect, useState } from "react";
+import {  useSearchParams, usePathname, useRouter  } from "next/navigation";
 import Select , { Options, SingleValue, ActionMeta }  from "react-select";
 
-// import { SingleValue, ActionMeta } from "react-select";
 
 export default function Search({ fieldsOptionsArray }) {
 
@@ -17,29 +17,43 @@ export default function Search({ fieldsOptionsArray }) {
     from: null,to: null,
   });
 
+  const searchParams = useSearchParams(); //read-only current URL search params
+  const pathname = usePathname();
+  const router = useRouter();
+   
 
 
-  // const [groupFilter, setGroupFilter] = useState("");
-    
-const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) =>{
-  setFilters((prevState:any) => {
+  
+  const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) =>{
     if (actionMeta.action==='select-option'){
-      return {...prevState, [actionMeta.name]: selectedOption.value}
-    }
-  })
-  console.log(selectedOption);    
-  console.log(actionMeta)
-}
+        // setFilters((prevState:any) => {
+        // return {...prevState, [actionMeta.name]: selectedOption.value}
+        // })
+        const params = new URLSearchParams(searchParams); // creates a URLSearchParams object based on the actual search params  
+        console.log(selectedOption);    
+        console.log(actionMeta)
+        console.log('searchParams', searchParams);
+        params.set(actionMeta.name, selectedOption.value);
+        console.log('params', params.get(actionMeta.name))
+        console.log('params string', params.toString());
+        router.replace(`${pathname}?${params.toString()}`);
+    }      
+
+  }
+        
+//TODO: el handleChange que sincroniza el name/selectedOption con la URL funciona
+//TODO: problema: NO está actualizando los URL params al instante, esto NO es normal!, debe faltar algo por hacer
+//TODO: ¿ podría ser que hay que sincronizar el defaultValue de cada Select como en el tutorial de 
+//nextjs: defaultValue={searchParams.get('query')?.toString()} ?
+//TODO: ahora probar a iterar sobre el params (bien sobre el objeto en sí o sobre sus entries u otro método) 
+//y pillar de ahí el objeto con los filtros para el GET. 
+//este GET debe ir en el handleSubmit del form que a su vez debe ser un RSC (debe evitarse que el handleSubmit
+//sea un post: ¿es esto posiblE? ¿me vale solo con preventDefault?   
+        
 
 
-// const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => {
-//  if(actionMeta.action === "select-option"){
-//     setGroupFilter(selectedOption.value);
-//   }
-//   console.log(selectedOption);    
-//   console.log(actionMeta)
-// };
 
+        
   const fieldOptions: OptionType[] = fieldsOptionsArray.map(
     (field: PrismaOption<"Type">[]) => {
       return field.map((elem) => {
@@ -58,8 +72,30 @@ const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: Action
   }, [filters]);
 
 
-
+  
   //TODO: funcionan los filtros y muestra el selected por UI pero da warning (¿es value o es otra prop?: mirar los docs)
+  //TODO: la action solo soporta POST, no sirve para este caso de uso!
+  //getServerSideProps dejó de existir en NextJS14, simplemente hacer el fetching desde un RSC! (no olvidar cache and revalidation)
+  //OJO: el form de react tiene el evento onSubmit que debe ser = handlSubmit() y el ejemplo del bootcamp no usa formData sino
+  //que se trae los valores con un handleChange y un state, revisar mi solución a ver como está (no perder tiempo con la de David!)
+  //hecho ahí
+  //por otra parte, a considerar: si pudiese usar el formData entonces en teoría NO necesitaría los filtros pues ya tendría todo 
+  //en el formData y URLSearchParams
+  //si es así habría que elminar el estado de filtros, el handleChange (no haría falta!) y la lógica del prop value de Select
+
+//TODO; 2 alternativas:
+
+//1. handleSubmit desde prop onSubmit del form creando instancia de FormData y 
+//pasándole el equivalente de react-select de event.target (se mantienen tanto
+//los filters como state y la actualización del value con estos). 
+//Problema: puede ser matar moscas a cañonazos
+
+//2. OPCION ACTUAL: prescindir del estado para filters y simplemente pillar los selected options
+//de los parametros de la url usando URLSearchParams (solo disponible en client components) y los hooks de pathname, 
+//useSearchParams, useRouter, etc. Una vez cogidos pasarlos a un handleSubmit que sea
+//una async function desde un RSC (que sería el form) y pasar a su vez esta funcion al 
+//onSubmit del form (que con preventDefault maybe no es necesariamente un POST!
+//Finalmente almacenar el resultado en un state local con await
 
 
 
@@ -78,20 +114,20 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}
             id={options[0].fieldName}
             options={options}
             name={options[0].fieldName}
-            onChange={handleChange}
-            // onChange={(selectedOption, actionMeta)=>handleChange(selectedOption, actionMeta)}         
-            /*  instanceId={elem[0].fieldName} */            
-              value={
-              options[0].fieldName === 'group' ? {'value' : group, 'label': group} :
-              options[0].fieldName === 'order' ? {'value' : order, 'label': order} :
-              options[0].fieldName === 'family' ? {'value' : family, 'label': family} :
-              options[0].fieldName === 'genus' ? {'value' : genus, 'label': genus} :
-              options[0].fieldName === 'species' ? {'value': species, 'label': species }  : 
-              options[0].fieldName === 'area' ?  {'value' : area, 'label': area } :
-              options[0].fieldName === 'origin' ?  {'value' : origin, 'label': origin } :
-              options[0].fieldName === 'country' ?  {'value' : country, 'label': country} : ""
-            }
-            //TODO: retomar aquí         
+
+            onChange={handleChange}      //TODO: handleChange comentado de momento        
+               
+            //   value={                    //TODO: actualización del selected value usando los filtros comentado de momento 
+            //   options[0].fieldName === 'group' ? {'value' : group, 'label': group} :
+            //   options[0].fieldName === 'order' ? {'value' : order, 'label': order} :
+            //   options[0].fieldName === 'family' ? {'value' : family, 'label': family} :
+            //   options[0].fieldName === 'genus' ? {'value' : genus, 'label': genus} :
+            //   options[0].fieldName === 'species' ? {'value': species, 'label': species }  : 
+            //   options[0].fieldName === 'area' ?  {'value' : area, 'label': area } :
+            //   options[0].fieldName === 'origin' ?  {'value' : origin, 'label': origin } :
+            //   options[0].fieldName === 'country' ?  {'value' : country, 'label': country} : ""
+            // }
+              
             // getOptionLabel={(option) => option.label}
             // getOptionValue={(option) => option.value}
             classNamePrefix="select"
@@ -143,6 +179,7 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}
         references.
       </p>
       <hr />
+
       <form className="max-w-4xl mx-auto mt-24 flex flex-col justify-around items-center sm:max-w-5xl sm:mt-32">
         <div className="max-w-full flex flex-col flex-wrap justify-between items-center gap-6 sm:flex-row sm:gap-10">
          <SelectGroup

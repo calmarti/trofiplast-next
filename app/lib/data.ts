@@ -181,7 +181,10 @@ export async function getOrderOptions():Promise<PrismaOption<'order'>[]>{
      return options;
  }
 
- export async function getItemsByFilters(
+ */
+
+
+ export async function getItems(
     {group,order,family,genus,species,area,origin,country}
     ):Promise<Item[]>{
     const items = await prisma.item.findMany({
@@ -197,4 +200,4 @@ export async function getOrderOptions():Promise<PrismaOption<'order'>[]>{
         }
     })
     return items;
- } */
+ } 
