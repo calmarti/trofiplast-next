@@ -17,10 +17,18 @@ export default function Search({ fieldsOptionsArray }) {
     from: null,to: null,
   });
 
+  
   const searchParams = useSearchParams(); //read-only current URL search params
+  const params = new URLSearchParams(searchParams); // creates a URLSearchParams object based on the actual search params  
   const pathname = usePathname();
   const router = useRouter();
+  
    
+  useEffect(() => {
+    setIsMounted(true); 
+      console.log('filters; ', filters);     
+      console.log('searchParams from useEffect', searchParams) 
+  }, [/* filters, */ ]);
 
 
   
@@ -29,22 +37,26 @@ export default function Search({ fieldsOptionsArray }) {
         // setFilters((prevState:any) => {
         // return {...prevState, [actionMeta.name]: selectedOption.value}
         // })
-        const params = new URLSearchParams(searchParams); // creates a URLSearchParams object based on the actual search params  
         console.log(selectedOption);    
         console.log(actionMeta)
-        console.log('searchParams', searchParams);
         params.set(actionMeta.name, selectedOption.value);
-        console.log('params', params.get(actionMeta.name))
+        console.log('just one param', params.get(actionMeta.name))
         console.log('params string', params.toString());
+        console.log('searchParams', searchParams);
         router.replace(`${pathname}?${params.toString()}`);
-    }      
+    }    
+  } 
 
-  }
         
 //TODO: el handleChange que sincroniza el name/selectedOption con la URL funciona
-//TODO: problema: NO está actualizando los URL params al instante, esto NO es normal!, debe faltar algo por hacer
-//TODO: ¿ podría ser que hay que sincronizar el defaultValue de cada Select como en el tutorial de 
-//nextjs: defaultValue={searchParams.get('query')?.toString()} ?
+//TODO: problema: actualiza los URL params pero entonces borra el selected option del Select!
+//TODO: TIENE QUE SER que hay que sincronizar el defaultValue de cada Select como en el tutorial de 
+//nextjs: defaultValue={searchParams.get('query')?.toString()} ---> da error de que 'searchParams.get() is not a function'
+//tampoco funciona si se usa el defaultInputValue (e react-select el defaultValue tiene q ser un Option y el defaultInputValue un string)
+//pero por lógica debería ser el defaultValue: no funciona  defaultValue={params? params.toString() : null}  pues es un string, no un Option
+//pero el Option debe ser el seleccionado y no está en el scope!! -> buscar en los docs de react-select como invocar el selectedOption 
+//en un atributo y no en una función
+
 //TODO: ahora probar a iterar sobre el params (bien sobre el objeto en sí o sobre sus entries u otro método) 
 //y pillar de ahí el objeto con los filtros para el GET. 
 //este GET debe ir en el handleSubmit del form que a su vez debe ser un RSC (debe evitarse que el handleSubmit
@@ -66,10 +78,7 @@ export default function Search({ fieldsOptionsArray }) {
     }
   );
 
-  useEffect(() => {
-    setIsMounted(true); 
-      console.log('filters; ', filters); 
-  }, [filters]);
+
 
 
   
@@ -99,7 +108,7 @@ export default function Search({ fieldsOptionsArray }) {
 
 
 
-function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}) {
+function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters, params}) {
 
   const { group, order, family, genus, species, area, origin, country } = filters;
 
@@ -114,7 +123,7 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}
             id={options[0].fieldName}
             options={options}
             name={options[0].fieldName}
-
+            // defaultValue={params? params.toString() : null} 
             onChange={handleChange}      //TODO: handleChange comentado de momento        
                
             //   value={                    //TODO: actualización del selected value usando los filtros comentado de momento 
@@ -187,6 +196,7 @@ function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, filters}
          isLoading={isLoading}         
          fieldOptions={fieldOptions}
          handleChange={handleChange}
+         searchParams
          filters={filters}
          ></SelectGroup>
         </div>
