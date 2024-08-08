@@ -43,18 +43,7 @@ export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleC
               name={fieldName}
               // defaultValue={params? params.toString() : null} 
               onChange={handleChange} 
-              value={getSelectedValue(fieldName)}
-                             
-                /* {                    //TODO: actualización del selected value usando el state  
-                fieldName === 'group' ? {'value' : selectedGroup, 'label': selectedGroup} :
-                fieldName === 'order' ? {'value' : selectedOrder, 'label': selectedOrder} :
-                fieldName === 'family' ? {'value' : selectedFamily, 'label': selectedFamily} :
-                fieldName === 'genus' ? {'value' : selectedGenus, 'label': selectedGenus} :
-                fieldName === 'species' ? {'value': selectedSpecies, 'label': selectedSpecies }  : 
-                fieldName === 'area' ?  {'value' : selectedArea, 'label': selectedArea } :
-                fieldName === 'origin' ?  {'value' : selectedOrigin, 'label': selectedOrigin } :
-                fieldName === 'country' ?  {'value' : selectedCountry, 'label': selectedCountry} : ""
-              } */
+              value={getSelectedValue(fieldName) || null}
                 
               // getOptionLabel={(option) => option.label}
               // getOptionValue={(option) => option.value}
@@ -62,7 +51,7 @@ export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleC
               classNamePrefix="select"
               isLoading={isLoading}
               isSearchable={true}
-              isClearable={false}
+              // isClearable={true}
               styles={{
                 control: (styles, state) => ({
                   ...styles,

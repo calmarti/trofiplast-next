@@ -5,14 +5,16 @@ import {  useSearchParams, usePathname, useRouter  } from "next/navigation";
 import Select, { Options, SingleValue, ActionMeta }  from "react-select";
 
 import SearchForm from "./SearchForm";
+import handleSubmit from "@/app/lib/actions";
 
-//TODO: la logica de cambio del estado no le llega a los Select o hay un problema 
-//con los import / export de los client components y el RSC (search form)
+//TODO: ya hace el GET con los filtros, aunque con un GET embebido en un POST 
+//en un handleSubmit
+//TODO: el isClearable NO está funcionando bien: read the docs
 
 export default function Search({ fieldsOptionsArray }) {
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const [selection, setselection] = useState({
     group: null, order: null,
     family: null, genus: null,
@@ -35,6 +37,17 @@ export default function Search({ fieldsOptionsArray }) {
   }, [selection]);
 
 
+  const fieldOptions: OptionType[] = fieldsOptionsArray.map(
+    (options: PrismaOption<"Type">[]) => {
+      return options.map((option) => {
+        return {
+          value: option[Object.keys(option)[0]],
+          label: option[Object.keys(option)[0]],
+          fieldName: Object.keys(option)[0],
+        };
+      });
+    }
+  );
   
   const handleChange = (selectedOption:SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) =>{
     if (actionMeta.action==='select-option'){
@@ -54,17 +67,7 @@ export default function Search({ fieldsOptionsArray }) {
         
 
         
-  const fieldOptions: OptionType[] = fieldsOptionsArray.map(
-    (options: PrismaOption<"Type">[]) => {
-      return options.map((option) => {
-        return {
-          value: option[Object.keys(option)[0]],
-          label: option[Object.keys(option)[0]],
-          fieldName: Object.keys(option)[0],
-        };
-      });
-    }
-  );
+
 
 
   
@@ -117,6 +120,7 @@ export default function Search({ fieldsOptionsArray }) {
     fieldOptions={fieldOptions}
     handleChange={handleChange}
     selection={selection}
+    
     >
     </SearchForm>
 
