@@ -10,12 +10,11 @@ import getItemsAction from "@/app/lib/actions";
 
 //TODO: probar eliminando el form (dejar solo el wrapper) y ejecutando el handleSubmit
 //con un onClick desde el butón llamando a la función de prisma importada desde data y listo!
-//TODO: el isClearable NO está funcionando bien: read the docs
 
 export default function Search({ fieldsOptionsArray }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [selection, setselection] = useState({
+  const [selection, setSelection] = useState({
     group: null,
     order: null,
     family: null,
@@ -54,9 +53,8 @@ export default function Search({ fieldsOptionsArray }) {
     selectedOption: SingleValue<OptionType>,
     actionMeta: ActionMeta<OptionType>
   ) => {
-    if (actionMeta.action === "select-option") {
-      setselection((prevState: any) => {
-        return { ...prevState, [actionMeta.name]: selectedOption.value };
+       setSelection((prevState: any) => {
+        return { ...prevState, [actionMeta.name]: selectedOption? selectedOption?.value : null };
       });
       console.log("option", selectedOption);
       console.log("actionMeta", actionMeta);
@@ -65,8 +63,16 @@ export default function Search({ fieldsOptionsArray }) {
       // console.log('params string', params.toString());
       // console.log('searchParams', searchParams);
       // router.replace(`${pathname}?${params.toString()}`);
-    }
+    // }
   };
+
+  const reset = () => {
+    setSelection(()=>{
+      return {group:null, order:null, family:null, genus: null,
+        species: null, area: null, origin: null, country: null
+      }
+    })
+  }
 
   const handleSubmit = async () => {
     // ev.preventDefault();
@@ -154,6 +160,8 @@ export default function Search({ fieldsOptionsArray }) {
             />
           </div>
         </div>
+
+        <div className="flex gap-3">
         <button
           type="button"
           onClick={handleSubmit}
@@ -161,6 +169,15 @@ export default function Search({ fieldsOptionsArray }) {
         >
           Submit
         </button>
+        <button
+          type="button"
+          onClick={reset}
+          className="w-24 focus:outline-none text-white bg-green-700 hover:bg-green-600 focus:ring-green-600 active:bg-green-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-10 mb-36"
+        >
+          Reset
+        </button>
+        </div>
+
       </div>
     </div>
   );

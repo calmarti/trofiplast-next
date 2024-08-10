@@ -51,7 +51,7 @@ export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleC
               classNamePrefix="select"
               isLoading={isLoading}
               isSearchable={true}
-              // isClearable={true}
+              isClearable={true}
               styles={{
                 control: (styles, state) => ({
                   ...styles,
