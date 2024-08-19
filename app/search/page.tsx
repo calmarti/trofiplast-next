@@ -26,10 +26,11 @@ export default async function Page() {
   // })
 
  
-  const fieldsOptionsArray = await GetFieldsOptions();
-  console.log('fieldOptionsArray' , fieldsOptionsArray);
+  const rawFieldsOptions = await GetFieldsOptions();
+  console.log('fieldOptionsRaw' , rawFieldsOptions);
 
-  const fieldsOptions: OptionType[][] = fieldsOptionsArray.map(
+
+  const fieldsOptions: OptionType[][] = rawFieldsOptions.map(
     (options/* : PrismaOption<"Type">[] */) => {
       return options.map((option) => {
         return {
@@ -48,8 +49,6 @@ export default async function Page() {
       <NavBar></NavBar>
       <Search 
       fieldsOptions={fieldsOptions}
-      // groupOptions={groupOptions}
-      // orderOptions={orderOptions}
       ></Search>
     </div>
   )

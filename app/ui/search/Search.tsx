@@ -8,9 +8,6 @@ import SelectGroup from "./SelectGroup";
 import getItemsAction from "@/app/lib/actions";
 
 
-//TODO: probar eliminando el form (dejar solo el wrapper) y ejecutando el handleSubmit
-//con un onClick desde el butón llamando a la función de prisma importada desde data y listo!
-
 
 export default function Search({ fieldsOptions }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +32,6 @@ export default function Search({ fieldsOptions }) {
   useEffect(() => {
     setIsMounted(true);
     console.log("selection; ", selection);
-    /*console.log('searchParams from useEffect',  searchParams ) */
   }, [selection]);
 
 
