@@ -1,14 +1,14 @@
 'use client';
 import Select from 'react-select';
 
-export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleChange, selection, /* searchParams */ }) {
+export default function SelectGroup({isMounted, isLoading ,fieldsOptions, handleChange, selection, /* searchParams */ }) {
 
     const { group, order, family, genus, species, area, origin, country } = selection;
   
-    return isMounted && fieldOptions.map((options:OptionType[])=> {
+    return isMounted && fieldsOptions.map((options:OptionType[])=> {
       const fieldName = options[0].fieldName;
 
-      const getSelectedValue = (fieldName): OptionType | null => {        
+      const getSelectedValue = (fieldName): OptionType /* | null  */ | "" => {        
         switch (fieldName) {
           case "group":
             return {'label': group, 'value': group, fieldName };          
@@ -26,8 +26,9 @@ export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleC
             return {'label': origin, 'value': origin, fieldName };   
           case "country":
             return {'label': country, 'value': country, fieldName };   
-          default:
-            return null;
+          // default:
+            // return null;
+            // return "";
           }
       }    
 
@@ -43,7 +44,7 @@ export default function SelectGroup({isMounted, isLoading ,fieldOptions, handleC
               name={fieldName}
               // defaultValue={params? params.toString() : null} 
               onChange={handleChange} 
-              value={getSelectedValue(fieldName) || null}
+              value={getSelectedValue(fieldName)}
                 
               // getOptionLabel={(option) => option.label}
               // getOptionValue={(option) => option.value}
