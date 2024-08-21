@@ -1,5 +1,7 @@
 'use client';
+import { OptionType } from '@/app/lib/definitions';
 import Select from 'react-select';
+
 
 export default function SelectGroup({isMounted, isLoading ,fieldsOptions, handleChange, selection, /* searchParams */ }) {
 

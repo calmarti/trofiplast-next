@@ -1,6 +1,7 @@
 // import { getGroupOptions, getOrderOptions } from "../lib/data";
 
 import { GetFieldsOptions } from "../lib/data";
+import { OptionType } from "../lib/definitions";
 import NavBar from "../ui/common/navbar";
 import Search from "../ui/search/Search";
 
