@@ -1,5 +1,7 @@
 // import { Prisma } from '@prisma/client'
 
+import { Item } from "@prisma/client";
+
 //fieldOption of Prisma
 export type PrismaOption<Field extends string> = {
     [K in Field]: string | null;
@@ -16,3 +18,4 @@ export type PrismaOption<Field extends string> = {
   };
 
 
+export type SelectionType =  Omit<Item, 'id' | 'from' |  'to' |  'period' |  'summary' |  'reference' |  'href' |   'contributor' | 'createdAt' >;

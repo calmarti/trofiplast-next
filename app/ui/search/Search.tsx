@@ -6,8 +6,11 @@ import { SingleValue, ActionMeta } from "react-select";
 
 import SelectGroup from "./SelectGroup";
 import getItemsAction from "@/app/lib/actions";
-import { OptionType } from "@/app/lib/definitions";
+import { OptionType, SelectionType } from "@/app/lib/definitions";
 import SearchResults from "./SearchResults";
+
+
+
 
 export default function Search({
   fieldsOptions,
@@ -16,7 +19,8 @@ export default function Search({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [selection, setSelection] = useState({
+  const [selection, setSelection] = useState<SelectionType>
+  ({
     group: "",
     order: "",
     family: "",

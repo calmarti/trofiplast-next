@@ -44,7 +44,6 @@ export default function SelectGroup({isMounted, isLoading ,fieldsOptions, handle
               id={fieldName}
               options={options}
               name={fieldName}
-              // defaultValue={params? params.toString() : null} 
               onChange={handleChange} 
               value={getSelectedValue(fieldName)}
                 
