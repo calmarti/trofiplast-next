@@ -163,7 +163,7 @@ export default function Search({
         </div>
       </div>
     ) : (
-      <SearchResults/>
+      <SearchResults items={items}/>
     )
   }
 </>
