@@ -7,7 +7,6 @@ export type PrismaOption<Field extends string> = {
 
 
 
-
 //fieldOption of react-select
 
  export type OptionType = {
@@ -17,13 +16,3 @@ export type PrismaOption<Field extends string> = {
   };
 
 
-  // type Filters =  {
-  //   group: string, 
-  //   order: string,
-  //   family: string,
-  //   genus: string,
-  //   species: string, 
-  //   area: string,
-  //   origin: string,
-  //   country: string,
-  // }
