@@ -48,7 +48,7 @@ export default function Search({
     selectedOption: SingleValue<OptionType>,
     actionMeta: ActionMeta<OptionType>
   ) => {
-    setSelection((prevState: any) => {
+    setSelection((prevState) => {
       return {
         ...prevState,
         [actionMeta.name]: selectedOption ? selectedOption?.value : "",
