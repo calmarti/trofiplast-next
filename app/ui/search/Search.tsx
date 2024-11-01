@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { SingleValue, ActionMeta } from "react-select";
 
 import SelectGroup from "./SelectGroup";
 import getItemsAction from "@/app/lib/actions";
 import { OptionType, SelectionType } from "@/app/lib/definitions";
-import SearchResults from "./SearchResults";
-
-
-
+import { ItemsContext } from "@/app/lib/context";
+// import SearchResults from "./SearchResults";
 
 export default function Search({
   fieldsOptions,
@@ -32,17 +30,27 @@ export default function Search({
     // from: "",to: "",
   });
 
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]); STATE LIFTED UP TO THE LAYOUT SO BOTH SEARCH AND SEARCH RESULT CAN ACCESS IT, ONE TO SET IT, THE OTHER ONE TO USE IT WITH useState
 
   // const searchParams = useSearchParams(); //read-only current URL search params
   // const params = new URLSearchParams(searchParams); // creates a URLSearchParams object based on the actual search params
   // const pathname = usePathname();
-  // const router = useRouter();
+
+  const { setItems, items } = useContext(ItemsContext);
+  const router = useRouter();
+
 
   useEffect(() => {
     setIsMounted(true);
     console.log("selection; ", selection);
-  }, [selection]);
+    if (items.length > 0){
+      console.log("items from Search", items)
+    //navigate to results
+    router.push('/search/results');
+    }
+  }, [selection, items]);
+
+
 
   const handleChange = (
     selectedOption: SingleValue<OptionType>,
@@ -80,7 +88,7 @@ export default function Search({
   };
 
   const handleSubmit = async () => {
-    // ev.preventDefault();
+    //ev.preventDefault();
     try {
       const data = await getItemsAction(selection);
       setItems(data);
@@ -93,11 +101,12 @@ export default function Search({
   //TODO: el handleSubmit es una server action llamada desde un client component (es definida en un archivo con la directiva 'use server') y por eso funciona
   //si fuese una función normal (no una 'action') no se podría ejecutar en un client component
 
+
+   //TODO: falta implementar el caso de 'no results found matching those filters'
   return (
     <>
-  {
-   ! items.length ? 
-     (
+  {/* {! items.length ?  */}
+     
       <div className="max-w-4xl mx-auto mt-40 bg-slate-100 rounded-xl shadow-xl sm:max-w-7xl">
         <h2 className="font-medium text-center pt-16 pb-6 sm:text-xl">
           Search the Trofiplast database
@@ -166,10 +175,11 @@ export default function Search({
           </div>
         </div>
       </div>
-    ) : (
+     
+    {/* : (
       <SearchResults items={items}/>
-    )
-  }
+    ) */}
+  {/* } */}
 </>
 )
 }

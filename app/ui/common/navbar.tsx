@@ -8,7 +8,7 @@ export default function NavBar() {
                     <div className="flex lg:flex-1">
                         <a href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">Trofiplast</span>
-                            <img className="h-20 w-auto rounded-full" src="trofiplast_logo.png" alt="Trofiplast logo" />
+                            <img className="h-20 w-auto rounded-full" src="/trofiplast_logo.png" alt="Trofiplast logo" />
                         </a>
                     </div>
                     

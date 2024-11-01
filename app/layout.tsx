@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 
+
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto({ subsets: ["latin"], weight:'400'});
 
@@ -10,10 +11,11 @@ export const metadata: Metadata = {
   description: "Database of ingested plastics in animals",
 };
 
-export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) 
-{
+export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
+  
+  
   return (
-    <html lang="en">
+   <html lang="en">
       <body className={inter.className}>
 
         <div className="relative isolate px-6 pt-20 lg:px-8">               
@@ -34,5 +36,6 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
         
       </body>
     </html>
+
   );
 }
