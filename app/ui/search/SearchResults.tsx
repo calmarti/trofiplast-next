@@ -1,24 +1,25 @@
 "use client";
 import { ItemsContext } from "@/app/lib/context";
 import { Item } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 
 //TODO: div wrapper original es pos relative, sin el relative se preserva el efecto del degradado
 //sobre la tabla, pero hay que buscar mejores colores para la tabla
 //TODO: pagination
-//TODO: extraer el SearchResults a un Page aparte y pasarle los items con un estado global (¿useReducer, useContext?)
 //TODO: poner un badge con los criteria usados
+//TODO: boton de 'search again' 
 
-
-//TODO: issue actual: crear botón para navegar a Search 
 
 
 
 export default function SearchResults() {
 
- const { items } : { items: Item[]} = useContext(ItemsContext);
- 
+
+const { items, setItems } = useContext(ItemsContext);
+
+
   return (
     <>    
       <div className="max-w-5xl mx-auto overflow-x-auto shadow-xl sm:rounded-2xl sm:max-w-6xl mt-40">
